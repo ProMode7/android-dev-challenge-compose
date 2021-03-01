@@ -88,7 +88,7 @@ private fun setPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
                     .padding(
                         horizontal = 10.dp
                     ),
-                icon = { Icon(androidx.compose.material.icons.Icons.Filled.Home, "") },
+                icon = { Icon(Icons.Filled.Home, "") },
                 text = { Text("Adopt Me") },
                 onClick = {
                     navigateBack
@@ -133,16 +133,19 @@ private fun setPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
 @Composable
 private fun setPetInfo(puppy: Pet) {
     Column(
-        modifier = Modifier.padding(10.dp)
+        modifier = Modifier.padding(20.dp)
     ) {
+        Text(
+            text = "Hello, My name is",
+            style = MaterialTheme.typography.h6
+        )
         Text(
             text = puppy.name,
             style = MaterialTheme.typography.h4
         )
-
         Text(
-            text = puppy.breed,
-            style = MaterialTheme.typography.subtitle1
+            text = "and I am a ${puppy.breed}",
+            style = MaterialTheme.typography.h6
         )
 
         Row(
@@ -159,7 +162,7 @@ private fun setPetInfo(puppy: Pet) {
         }
 
         Text(
-            text = "More about ${puppy.name}",
+            text = "More about me",
             style = MaterialTheme.typography.subtitle1.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Medium)
         )
         Spacer(modifier = Modifier.height(5.dp))
@@ -191,7 +194,7 @@ private fun setPetDetailItem(value: String) {
         ) {
             Text(
                 text = value,
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.body1.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Medium)
             )
         }
     }

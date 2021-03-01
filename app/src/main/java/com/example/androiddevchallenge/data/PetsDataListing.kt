@@ -15,7 +15,7 @@
  */
 package com.example.androiddevchallenge.data
 
-object PuppyRepository {
+object PetsDataListing {
     val puppies = listOf(
         Pet(
             id = "1",

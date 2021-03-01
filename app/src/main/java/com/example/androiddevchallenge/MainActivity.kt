@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
-    val puppies = com.example.androiddevchallenge.data.PuppyRepository.puppies
+    val puppies = com.example.androiddevchallenge.data.PetsDataListing.puppies
     NavHost(navController, startDestination = Navigation.SplashScreen.title) {
         composable(Navigation.SplashScreen.title) {
             SplashScreen(navigateToHome = {

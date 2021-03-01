@@ -26,15 +26,3 @@ val yellow200 = Color(0xffffeb46)
 val yellow400 = Color(0xffffc000)
 val yellow500 = Color(0xffffde03)
 val yellowDarkPrimary = Color(0xff242316)
-
-val gridColors = listOf(
-    Color(0xFFD1CB99),
-    Color(0xFF9A81C7),
-    Color(0xFFFA93B6),
-    Color(0xFF8DB88D),
-    Color(0xFF95B6B6),
-    Color(0xFF60A2A2),
-    Color(0xFFEC9B9B),
-    Color(0xFFC3E2CD),
-    Color(0xFFDBBBCB),
-)
