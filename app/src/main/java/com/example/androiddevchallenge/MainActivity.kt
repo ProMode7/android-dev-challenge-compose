@@ -44,12 +44,14 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun MyApp() {
     val navController = rememberNavController()
-    val puppies = com.example.androiddevchallenge.data.PetsDataListing.puppies
+    val puppies = com.example.androiddevchallenge.data.PuppyRepository.puppies
     NavHost(navController, startDestination = Navigation.SplashScreen.title) {
         composable(Navigation.SplashScreen.title) {
-            SplashScreen(navigateToHome = {
-                navController.navigate(Navigation.HomeScreen.title)
-            })
+            SplashScreen(
+                navigateToHome = {
+                    navController.navigate(Navigation.HomeScreen.title)
+                }
+            )
         }
         composable(Navigation.HomeScreen.title) {
             com.example.androiddevchallenge.ui.screens.home.HomeScreen(
@@ -69,7 +71,6 @@ fun MyApp() {
         }
     }
 }
-
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable

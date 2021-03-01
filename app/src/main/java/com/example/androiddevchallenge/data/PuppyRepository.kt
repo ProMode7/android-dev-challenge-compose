@@ -15,7 +15,7 @@
  */
 package com.example.androiddevchallenge.data
 
-object PetsDataListing {
+object PuppyRepository {
     val puppies = listOf(
         Pet(
             id = "1",
@@ -120,7 +120,8 @@ object PetsDataListing {
                 width = 680,
                 height = 384
             )
-        ), Pet(
+        ),
+        Pet(
             id = "9",
             name = "Copper",
             breed = "Beagle",
