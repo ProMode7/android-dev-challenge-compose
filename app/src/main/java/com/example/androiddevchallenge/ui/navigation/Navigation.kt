@@ -13,19 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.ui.navigation
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
-import androidx.compose.ui.unit.dp
-
-val shapes = Shapes(
-    small = RoundedCornerShape(percent = 50),
-    medium = RoundedCornerShape(size = 0f),
-    large = RoundedCornerShape(
-        topStart = 16.dp,
-        topEnd = 0.dp,
-        bottomEnd = 0.dp,
-        bottomStart = 16.dp
-    )
-)
+sealed class Navigation(val title: String) {
+    object SplashScreen : Navigation("SplashScreen")
+    object HomeScreen : Navigation("HomeScreen")
+    object DetailScreen : Navigation("DetailScreen")
+}

@@ -18,11 +18,15 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.ui.navigation.Navigation
+import com.example.androiddevchallenge.ui.screens.details.DetailsScreen
+import com.example.androiddevchallenge.ui.screens.splash.SplashScreen
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -39,10 +43,33 @@ class MainActivity : AppCompatActivity() {
 // Start building your app here!
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    val navController = rememberNavController()
+    val puppies = com.example.androiddevchallenge.data.PuppyRepository.puppies
+    NavHost(navController, startDestination = Navigation.SplashScreen.title) {
+        composable(Navigation.SplashScreen.title) {
+            SplashScreen(navigateToHome = {
+                navController.navigate(Navigation.HomeScreen.title)
+            })
+        }
+        composable(Navigation.HomeScreen.title) {
+            com.example.androiddevchallenge.ui.screens.home.HomeScreen(
+                navigateToPuppyDetails = { pet ->
+                    navController.navigate(Navigation.DetailScreen.title + "/${pet.id}")
+                }
+            )
+        }
+        composable(Navigation.DetailScreen.title + "/{id}") { backStackEntry ->
+            val puppyId = backStackEntry.arguments?.getString("id")
+            val puppy =
+                puppies.find { it.id == puppyId } ?: throw IllegalStateException("puppy not found")
+            DetailsScreen(
+                puppy = puppy,
+                navigateBack = { navController.popBackStack() }
+            )
+        }
     }
 }
+
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
