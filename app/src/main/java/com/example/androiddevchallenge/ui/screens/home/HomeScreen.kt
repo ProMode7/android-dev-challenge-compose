@@ -15,8 +15,7 @@
  */
 package com.example.androiddevchallenge.ui.screens.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -24,11 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import com.example.androiddevchallenge.data.Pet
+import com.example.androiddevchallenge.ui.theme.gridColors
+import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
 fun HomeScreen(navigateToPuppyDetails: (Pet) -> Unit) {
@@ -41,10 +43,10 @@ fun HomeScreen(navigateToPuppyDetails: (Pet) -> Unit) {
                     verticalArrangement = Arrangement.Center,
                 ) {
                     HeaderTitle()
+//                    Spacer(Modifier.height(5.dp))
+//                    HorizontalCarousal(puppies = puppies)
                     Spacer(Modifier.height(5.dp))
-                    HorizontalCarousal(puppies = puppies)
-                    Spacer(Modifier.height(5.dp))
-                    PetList(puppies, navigateToPuppyDetails)
+                    setVerticalList(puppies, navigateToPuppyDetails)
                 }
             }
         )
@@ -75,7 +77,7 @@ fun HorizontalCarousal(puppies: List<Pet>) {
             ) {
                 Column(
                     horizontalAlignment =
-                    androidx.compose.ui.Alignment.CenterHorizontally
+                    Alignment.CenterHorizontally
                 ) {
                     Text(
                         text = puppy.name,
@@ -99,7 +101,7 @@ fun VerticalList(puppies: List<Pet>) {
             ) {
                 Column(
                     horizontalAlignment =
-                    androidx.compose.ui.Alignment.CenterHorizontally
+                    Alignment.CenterHorizontally
                 ) {
                     dev.chrisbanes.accompanist.coil.CoilImage(
                         data = puppy.image.url,
@@ -117,6 +119,75 @@ fun VerticalList(puppies: List<Pet>) {
                 }
                 Spacer(Modifier.width(16.dp))
             }
+        }
+    }
+}
+
+@Composable
+fun setVerticalList(
+    puppies: List<Pet>,
+    navigateToPuppyDetails: (Pet) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+    ) {
+        StaggeredVerticalGrid(
+            maxColumnWidth = 350.dp,
+        ) {
+            puppies.forEach { Pet ->
+                listGridItem(puppy = Pet, navigateToPuppyDetails)
+            }
+        }
+    }
+}
+
+@Composable
+fun listGridItem(
+    puppy: Pet,
+    navigateToPuppyDetails: (Pet) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .clickable {
+                navigateToPuppyDetails.invoke(puppy)
+            }
+    ) {
+        CoilImage(
+            data = puppy.image.url,
+            contentDescription = puppy.name,
+            contentScale = ContentScale.Crop,
+            fadeIn = true,
+            modifier = Modifier
+                .background(Color.LightGray)
+                .aspectRatio(puppy.image.aspectRatio)
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    gridColors
+                        .random()
+                        .copy(alpha = 0.5f)
+                )
+                .padding(vertical = 5.dp, horizontal = 5.dp),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Text(
+                text = puppy.name,
+                style = MaterialTheme.typography.subtitle2
+            )
+            Text(
+                text = puppy.breed,
+                style = MaterialTheme.typography.body2
+            )
+            Text(
+                text = "${puppy.sex.value}, ${puppy.ageString}",
+                style = MaterialTheme.typography.caption
+            )
         }
     }
 }
