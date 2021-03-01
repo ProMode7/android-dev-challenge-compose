@@ -2,16 +2,15 @@
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
-![Workflow result](https://github.com/<OWNER>/<REPOSITORY>/workflows/Check/badge.svg)
+![Workflow result](https://github.com/ProMode7/android-dev-challenge-compose/workflows/Check/badge.svg)
 
 
 ## :scroll: Description
-<!--- Describe your app in one or two sentences -->
+An app to find yourself a new pet friend. Currently it only have dog puppies. You can see the details of puppies and can also share the puppy profiles with your friends and help them find a friend.
 
 
 ## :bulb: Motivation and Context
-<!--- Optionally point readers to interesting parts of your submission. -->
-<!--- What are you especially proud of? -->
+Taking part in any of the Google Challenge is a challenge to self. This particular challenge is giving an opportunity to learn jetpack compose skills. Jetpack Compose. This is my first app with Compose and I really loved working on it. It gave me a different level of satisfaction completing this and I'm looking forward to work and learn this continously.
 
 
 ## :camera_flash: Screenshots
@@ -20,7 +19,7 @@
 
 ## License
 ```
-Copyright 2020 The Android Open Source Project
+Copyright 2021 The Android Open Source Project
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
