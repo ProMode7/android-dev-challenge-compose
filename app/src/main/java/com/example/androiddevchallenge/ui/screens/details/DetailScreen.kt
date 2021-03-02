@@ -15,6 +15,9 @@
  */
 package com.example.androiddevchallenge.ui.screens.details
 
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -48,6 +51,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.androiddevchallenge.data.Pet
@@ -65,14 +69,15 @@ fun DetailsScreen(
             .verticalScroll(ScrollState(0))
     ) {
         Column(Modifier.fillMaxWidth()) {
-            setPicAndButtons(puppy = puppy, navigateBack)
-            setPetInfo(puppy = puppy)
+            SetPicAndButtons(puppy = puppy, navigateBack)
+            SetPetInfo(puppy = puppy)
         }
     }
 }
 
-@androidx.compose.runtime.Composable
-private fun setPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
+@Composable
+private fun SetPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
+    val context = LocalContext.current
     ConstraintLayout {
         val (image, buttonRow) = createRefs()
         CoilImage(
@@ -111,7 +116,10 @@ private fun setPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
                 icon = { Icon(Icons.Filled.Home, "") },
                 text = { Text("Adopt Me") },
                 onClick = {
-                    navigateBack
+                    showToast(
+                        "Yay! You've Adopted \uD83C\uDF89 ${puppy.name} \uD83D\uDC36",
+                        context
+                    )
                 },
                 elevation = FloatingActionButtonDefaults.elevation(8.dp)
             )
@@ -133,7 +141,7 @@ private fun setPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
                 icon = { Icon(androidx.compose.material.icons.Icons.Filled.Share, "") },
                 text = { Text("Share") },
                 onClick = {
-                    navigateBack
+                    openShareOptions(puppy, context)
                 },
                 elevation = FloatingActionButtonDefaults.elevation(8.dp)
             )
@@ -150,8 +158,19 @@ private fun setPicAndButtons(puppy: Pet, navigateBack: () -> kotlin.Unit) {
     }
 }
 
+fun openShareOptions(puppy: Pet, context: Context) {
+    val sharingIntent = Intent(Intent.ACTION_SEND)
+    sharingIntent.type = "image/*"
+    sharingIntent.putExtra(Intent.EXTRA_STREAM, puppy.image.url)
+    context.startActivities(arrayOf(Intent.createChooser(sharingIntent, "Share with")))
+}
+
+private fun showToast(message: String, context: Context) {
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+}
+
 @Composable
-private fun setPetInfo(puppy: Pet) {
+private fun SetPetInfo(puppy: Pet) {
     Column(
         modifier = Modifier.padding(20.dp)
     ) {
@@ -175,10 +194,10 @@ private fun setPetInfo(puppy: Pet) {
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            setPetDetailItem(value = puppy.sex.value)
-            setPetDetailItem(value = puppy.color)
-            setPetDetailItem(value = puppy.ageString)
-            setPetDetailItem(value = "${puppy.weight} kg")
+            SetPetDetailItem(value = puppy.sex.value)
+            SetPetDetailItem(value = puppy.color)
+            SetPetDetailItem(value = puppy.ageString)
+            SetPetDetailItem(value = "${puppy.weight} kg")
         }
 
         Text(
@@ -194,7 +213,7 @@ private fun setPetInfo(puppy: Pet) {
 }
 
 @Composable
-private fun setPetDetailItem(value: String) {
+private fun SetPetDetailItem(value: String) {
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier

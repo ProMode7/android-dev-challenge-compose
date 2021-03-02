@@ -56,7 +56,7 @@ fun HomeScreen(navigateToPuppyDetails: (Pet) -> Unit) {
                     verticalArrangement = Arrangement.Center,
                 ) {
                     HeaderTitle(puppies, navigateToPuppyDetails)
-                    setVerticalList(puppies, navigateToPuppyDetails)
+                    SetVerticalList(puppies, navigateToPuppyDetails)
                 }
             }
         )
@@ -128,7 +128,7 @@ fun HorizontalCarousal(puppies: List<Pet>, navigateToPuppyDetails: (Pet) -> Unit
 }
 
 @Composable
-fun setVerticalList(
+fun SetVerticalList(
     puppies: List<Pet>,
     navigateToPuppyDetails: (Pet) -> Unit
 ) {
@@ -137,7 +137,7 @@ fun setVerticalList(
             .padding(20.dp, 20.dp, 20.dp, 0.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        StaggeredVerticalGrid(
+        StaggeredGridView(
             maxColumnWidth = 300.dp,
         ) {
             puppies.forEach { Pet ->
