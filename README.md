@@ -15,9 +15,12 @@ Taking part in any of the Google Challenge is a challenge to self. This particul
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
+### Light Theme:
 <img src="/results/screenshot_1.png" width="32%">&emsp;<img src="/results/screenshot_2.png" width="32%">&emsp;<img src="/results/screenshot_3.png" width="32%">
+### Dark Theme
 <img src="/results/screenshot_4.png" width="32%">&emsp;<img src="/results/screenshot_5.png" width="32%">&emsp;<img src="/results/screenshot_6.png" width="32%">
 
+<img src="/results/gif_1.gif" width="35%">&emsp;<img src="/results/gif_2.gif" width="35%">
 ## License
 ```
 Copyright 2021 The Android Open Source Project
